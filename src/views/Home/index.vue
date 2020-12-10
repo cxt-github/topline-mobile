@@ -48,7 +48,7 @@
     </van-tabs>
 
     <!-- 弹出层 -->
-    <channel v-model="show" />
+    <channel v-model="show" :channelList="channelList" :active="active" />
   </div>
 </template>
 
