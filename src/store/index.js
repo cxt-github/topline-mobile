@@ -14,6 +14,8 @@ export default new Vuex.Store({
     // 设置 use
     setUse(state,use){
       token.setToken(use)
+      //更新给user
+      state.user = use
     }
   },
   actions: {

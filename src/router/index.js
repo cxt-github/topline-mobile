@@ -7,9 +7,19 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    //重定向，如果访问/，就会直接访问/login
+    path:'/',
+    redirect:'/home'
+  },
   //() => import('') 相当于导入子组件
   { path: '/login', component: () => import('../views/Login') },
-  { path: '/home', component: () => import('../views/Home') },
+  { path: '/tabBar', component: () => import('../views/TabBar'),
+    children: [
+      { path: '/home', component: () => import('../views/Home') },
+      { path: '/my', component: () => import('../views/My') },
+    ]
+  },
 ]
 
 const router = new VueRouter({

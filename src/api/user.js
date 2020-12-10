@@ -1,6 +1,6 @@
 // 封装所有用户相关的网络请求
 
-//导入axios
+//导入request
 import request from '../utils/request'
 
 // 请求登录接口

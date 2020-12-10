@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <van-nav-bar title="登录" class="login-nav" />
+    <van-nav-bar title="登录" class="login-nav"/>
     <van-form @submit="onSubmit">
       <van-field
         v-model="mobile"
@@ -84,16 +84,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.login {
-  height: 100%;
-  .login-nav {
-    background-color: #3296fa;
-  }
-}
 
-.van-nav-bar {
-  /deep/.van-nav-bar__title {
-    color: #fff;
-  }
-}
 </style>

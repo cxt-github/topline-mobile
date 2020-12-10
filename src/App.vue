@@ -9,9 +9,14 @@ export default {
 
 }
 </script>
-
 <style lang="less">
-  #app {
+ #app {
     height: 100%;
   }
+.van-nav-bar {
+  background-color: #1989fa !important;
+  .van-nav-bar__title {
+    color: #fff;
+  }
+}
 </style>
