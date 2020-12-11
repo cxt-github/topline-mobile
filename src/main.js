@@ -4,6 +4,10 @@ import router from './router'
 import store from './store'
 //导入vant
 import Vant from 'vant';
+import { Lazyload } from 'vant';
+//导入dayjs
+import * as dayjs from 'dayjs'
+require('dayjs/locale/zh-cn')
 //导入vee-validate
 import { ValidationProvider, extend } from 'vee-validate';
 
@@ -20,8 +24,20 @@ extend('secret', {
 
 //使用vant
 Vue.use(Vant);
+Vue.use(Lazyload);
 //使用vee-validate
 Vue.component('ValidationProvider', ValidationProvider);
+//使用dayjs,语言包
+dayjs.locale('zh-cn') // 全局使用简体中文
+//使用dayjs插槽
+var relativeTime = require('dayjs/plugin/relativeTime')
+dayjs.extend(relativeTime)
+
+//全局过滤
+//过滤到现在的相对事件，用dayjs
+Vue.filter('dateFilter',item => {
+  return dayjs().from(dayjs(item))
+})
 
 
 Vue.config.productionTip = false

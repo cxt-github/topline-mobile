@@ -20,12 +20,12 @@
             >
               <template #label>
                 <!-- 图片，用宫格 -->
-                <van-grid :column-num="3" :gutter="10" :border="false">
+                <van-grid :column-num="3" :gutter="10" :border="false" v-if="subItem.cover.type > 0">
                   <van-grid-item
                     v-for="(value,valindex) in subItem.cover.images"
                     :key="valindex"
                   >
-                    <van-image :src="value" />
+                    <van-image :src="value" lazy-load />
                   </van-grid-item>
                 </van-grid>
                 <!-- 用户下方信息 -->
@@ -33,9 +33,9 @@
                   <div class="left">
                     <span>{{ subItem.aut_name }}</span>
                     <span>评论{{ subItem.comm_count }}</span>
-                    <span>{{ subItem.pubdate }}</span>
+                    <span>{{ subItem.pubdate | dateFilter }}</span>
                   </div>
-                  <div class="right">
+                  <div class="right" @click="xxshow=true">
                     <van-icon name="cross" />
                   </div>
                 </div>
@@ -49,6 +49,8 @@
 
     <!-- 弹出层 -->
     <channel v-model="show" :channelList="channelList" :active.sync="active" />
+    <!-- 更多 -->
+    <more v-model="xxshow"/>
   </div>
 </template>
 
@@ -59,6 +61,8 @@ import { getChannel } from "../../api/channel";
 import { getArticles } from "../../api/articles";
 //导入弹出层组件
 import channel from "./channel/index";
+//导入更多组件
+import more from './more/index'
 //导入token
 import { getToken } from "../../utils/token";
 
@@ -66,6 +70,7 @@ export default {
   name: "home",
   components: {
     channel,
+    more
   },
   data() {
     return {
@@ -76,6 +81,7 @@ export default {
       // finished: false,
       // refreshing: false,
       show: false, //控制弹出层
+      xxshow: false, //控制更多弹出层
     };
   },
 
