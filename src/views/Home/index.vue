@@ -48,7 +48,7 @@
     </van-tabs>
 
     <!-- 弹出层 -->
-    <channel v-model="show" :channelList="channelList" :active="active" />
+    <channel v-model="show" :channelList="channelList" :active.sync="active" />
   </div>
 </template>
 
@@ -127,7 +127,11 @@ export default {
     async onLoad() {
       //通过channelList的下标得到当前页面的数据channel
       let channel = this.channelList[this.active];
-      console.log(channel);
+      if(channel.pre_timestamp === null){
+        channel.drapLoading  = false
+        channel.finished = false
+        return
+      }
       //判断是否第一次进入
       if (channel.pre_timestamp === 0) {
         //第一次进入

@@ -18,3 +18,14 @@ export function getAllChannel() {
         method: 'get'
     })
 }
+
+//保存用户频道
+export function setChannel({channels}) {
+    return request({
+        url: '/app/v1_0/user/channels',
+        method: 'put',
+        data:{
+            channels
+        }
+    })
+}
