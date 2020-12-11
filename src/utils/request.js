@@ -2,10 +2,23 @@ import axios from 'axios'
 
 //导入store
 import store from '../store/index'
+//导入json-bigint,用来处理大数字
+import JSONbig from 'json-bigint'
 
 //可以使用自定义配置新建一个 axios 实例
 const myrequest = axios.create({
     baseURL: 'http://ttapi.research.itcast.cn/',
+    transformResponse:  (data) => {
+      // 对 data 进行任意转换处理
+      try {
+         //如果能转换成功，就转换，并返回转换后的结果
+         let obj = JSONbig.parse(data);
+         return obj
+      } catch (error) {
+        // 如果不能转换成功，就直接返回它原来的结果
+        return data;
+      }
+    },
 })
 
 // 添加请求拦截器

@@ -2,7 +2,7 @@
   <div class="home">
     <van-nav-bar title="首页" :fixed="true" />
     <van-tabs v-model="active">
-      <div slot="nav-right" class="my-wap-nav" @click="showPopup">
+      <div slot="nav-right" class="my-wap-nav" @click="show = true">
         <van-icon name="wap-nav" />
       </div>
       <van-tab :title="item.name" v-for="item in channelList" :key="item.id">
@@ -35,7 +35,7 @@
                     <span>评论{{ subItem.comm_count }}</span>
                     <span>{{ subItem.pubdate | dateFilter }}</span>
                   </div>
-                  <div class="right" @click="xxshow=true">
+                  <div class="right" @click="openMore(subItem.art_id)">
                     <van-icon name="cross" />
                   </div>
                 </div>
@@ -50,7 +50,7 @@
     <!-- 弹出层 -->
     <channel v-model="show" :channelList="channelList" :active.sync="active" />
     <!-- 更多 -->
-    <more v-model="xxshow"/>
+    <more v-model="xxshow" :activeArticleId="activeArticleId" @delItem="delItem" />
   </div>
 </template>
 
@@ -82,6 +82,7 @@ export default {
       // refreshing: false,
       show: false, //控制弹出层
       xxshow: false, //控制更多弹出层
+      activeArticleId:0,   //当前被点击文章的id
     };
   },
 
@@ -184,9 +185,23 @@ export default {
       this.onLoad()
     },
 
-    showPopup() {
-      this.show = true;
+    //点击叉叉图标时，把文章的id保存起来
+    openMore(artId) {
+      this.xxshow = true;
+      this.activeArticleId = artId
     },
+
+    delItem(artId) {
+      //先得到当前选项的文章数据
+      let articleData = this.channelList[this.active].article
+       // 根据 artId 去删除文章数据中对应的信息
+       articleData.forEach((item,index) => {
+         if(item.art_id === artId) {
+           articleData.splice(index,1)
+           return
+         }
+       })
+    }
   },
 
   mounted() {

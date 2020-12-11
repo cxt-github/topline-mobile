@@ -15,3 +15,14 @@ export function getArticles({channel_id,timestamp,with_top}) {
         }
     })
 }
+
+//不喜欢文章
+export function dislikeArticles(id) {
+    return request({
+        url: '/app/v1_0/article/dislikes',
+        method: 'POST',
+        data: {
+            target: id
+        }
+    })
+}
