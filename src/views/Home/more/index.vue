@@ -9,7 +9,7 @@
     <van-cell-group v-if="!isItem">
       <van-cell title="隐藏消息" @click="NoLike" />
       <van-cell title="举报" is-link @click="isItem = true" />
-      <van-cell title="拉黑" @click="blackAuthord"/>
+      <van-cell title="拉黑" @click="blackAuthord" />
     </van-cell-group>
 
     <!-- 举报类型 -->
@@ -29,11 +29,11 @@
 //导入文章不喜欢api、举报文章
 import { dislikeArticles, informArticles } from "../../../api/articles";
 //导入拉黑作者api
-import { userBlacklist } from '../../../api/user'
+import { userBlacklist } from "../../../api/user";
 
 export default {
   name: "more",
-  props: ["value", "activeArticleId","authorId"],
+  props: ["value", "activeArticleId", "authorId"],
   data() {
     return {
       //控制举报的隐藏与显示
@@ -57,18 +57,22 @@ export default {
     async NoLike() {
       //判断用户是否登录
       let use = this.$store.state.user;
-      if (use) { //已经登录
-        try {//代表无误执行
-        //发请求取关
-        await dislikeArticles(this.activeArticleId)
-        //传值给父组件，删除文章
-        this.$emit("delItem", this.activeArticleId);
-        this.$toast.success('取关成功');
-        } catch (error) {//代码有误才执行
-        this.$toast.fail("取关失败");
+      if (use) {
+        //已经登录
+        try {
+          //代表无误执行
+          //发请求取关
+          await dislikeArticles(this.activeArticleId);
+          //传值给父组件，删除文章
+          this.$emit("delItem", this.activeArticleId);
+          this.$toast.success("取关成功");
+        } catch (error) {
+          //代码有误才执行
+          this.$toast.fail("取关失败");
         }
-      } else { //未登录
-        this.$toast.fail('请先登录');
+      } else {
+        //未登录
+        this.$toast.fail("请先登录");
       }
       //关闭弹出层
       this.$emit("input", false);
@@ -78,11 +82,13 @@ export default {
     async blackAuthord() {
       //判断用户是否登录
       let use = this.$store.state.user;
-      if(use) { //已经登录
-        await userBlacklist(this.authorId)
-        this.$toast.success('成功拉黑作者');
-      } else {  //未登录
-        this.$toast.fail('请先登录');
+      if (use) {
+        //已经登录
+        await userBlacklist(this.authorId);
+        this.$toast.success("成功拉黑作者");
+      } else {
+        //未登录
+        this.$toast.fail("请先登录");
       }
       //关闭弹出层
       this.$emit("input", false);
@@ -92,28 +98,29 @@ export default {
     async inform(value) {
       //判断用户是否登录
       let use = this.$store.state.user;
-      if(use) {
+      if (use) {
         try {
           await informArticles({
-          id: this.activeArticleId.toString(),
-          type: value
-        })
-        this.$toast.success('举报成功');
+            id: this.activeArticleId.toString(),
+            type: value,
+          });
+          this.$toast.success("举报成功");
         } catch (error) {
           console.dir(error);
-          if(error.response.status === 409){
-            this.$toast.fail('改文章已经被举报了');
+          if (error.response.status === 409) {
+            this.$toast.fail("改文章已经被举报了");
           } else {
-            this.$toast.fail('系统异常');
+            this.$toast.fail("系统异常");
           }
         }
-      } else { //未登录
-        this.$toast.fail('请先登录');
+      } else {
+        //未登录
+        this.$toast.fail("请先登录");
       }
       //关闭弹出层
       this.$emit("input", false);
-      this.isItem = false
-    }
+      this.isItem = false;
+    },
   },
 };
 </script>

@@ -72,7 +72,7 @@ export default {
         //将token保存到vuex
         this.$store.commit("setUse", res);
         //跳转到hom页面
-        this.$router.push("/home");
+        this.$router.back();
       } catch (error) {
         this.$toast("出错啦");
       }

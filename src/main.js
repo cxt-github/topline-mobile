@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+//导入自己封装的vue插件
+import myplugs from './utils/loginplugs'
 //导入vant
 import Vant from 'vant';
 import { Lazyload } from 'vant';
@@ -39,6 +41,8 @@ Vue.filter('dateFilter',item => {
   return dayjs().from(dayjs(item))
 })
 
+//使用自己封装的vue插件
+Vue.use(myplugs)
 
 Vue.config.productionTip = false
 
