@@ -14,3 +14,14 @@ export function userLogin({mobile,code}) {
         }
     })
 }
+
+//拉黑作者
+export function userBlacklist(id) {
+    return request({
+        url: '/app/v1_0/user/blacklists',
+        method: 'POST',
+        data: {
+            target: id
+        }
+    })
+}

@@ -35,7 +35,7 @@
                     <span>评论{{ subItem.comm_count }}</span>
                     <span>{{ subItem.pubdate | dateFilter }}</span>
                   </div>
-                  <div class="right" @click="openMore(subItem.art_id)">
+                  <div class="right" @click="openMore(subItem.art_id,subItem.aut_id)">
                     <van-icon name="cross" />
                   </div>
                 </div>
@@ -50,7 +50,7 @@
     <!-- 弹出层 -->
     <channel v-model="show" :channelList="channelList" :active.sync="active" />
     <!-- 更多 -->
-    <more v-model="xxshow" :activeArticleId="activeArticleId" @delItem="delItem" />
+    <more v-model="xxshow" :activeArticleId="activeArticleId" @delItem="delItem" :authorId="authorId"/>
   </div>
 </template>
 
@@ -83,6 +83,7 @@ export default {
       show: false, //控制弹出层
       xxshow: false, //控制更多弹出层
       activeArticleId:0,   //当前被点击文章的id
+      authorId: 0, //作者id
     };
   },
 
@@ -186,9 +187,10 @@ export default {
     },
 
     //点击叉叉图标时，把文章的id保存起来
-    openMore(artId) {
+    openMore(artId,autId) {
       this.xxshow = true;
       this.activeArticleId = artId
+      this.authorId = autId
     },
 
     delItem(artId) {
