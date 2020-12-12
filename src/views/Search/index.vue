@@ -69,7 +69,7 @@ export default {
       window.localStorage.setItem('search',JSON.stringify(this.searchList))
     },
 
-    //取消出伏
+    //取消触发
     onCancel() {
       console.log("我已经取消了");
     },
