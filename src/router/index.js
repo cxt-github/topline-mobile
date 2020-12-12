@@ -21,6 +21,7 @@ const routes = [
       { path: '/my', component: () => import('../views/My') },
     ]
   },
+  { path: '/list/:key', component: () => import('../views/List')},
 ]
 
 const router = new VueRouter({

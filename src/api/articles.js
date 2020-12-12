@@ -39,3 +39,14 @@ export function informArticles({id,type}) {
         }
     })
 }
+
+//联想建议
+export function associateSuggest(q){
+    return request({
+        url: '/app/v1_0/suggestion',
+        method: 'GET',
+        params: {
+            q
+        }
+    })
+}
