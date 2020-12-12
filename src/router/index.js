@@ -17,6 +17,7 @@ const routes = [
   { path: '/tabBar', component: () => import('../views/TabBar'),
     children: [
       { path: '/home', component: () => import('../views/Home') },
+      { path: '/search', component: () => import('../views/Search') },
       { path: '/my', component: () => import('../views/My') },
     ]
   },

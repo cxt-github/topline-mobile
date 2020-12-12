@@ -112,6 +112,7 @@ export default {
       }
       //关闭弹出层
       this.$emit("input", false);
+      this.isItem = false
     }
   },
 };
