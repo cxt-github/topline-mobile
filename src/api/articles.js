@@ -50,3 +50,16 @@ export function associateSuggest(q){
         }
     })
 }
+
+//搜索关键字文章
+export function searchKeyArticles({page,per_page,key}) {
+    return request({
+        url: '/app/v1_0/search',
+        method: 'GET',
+        params:{
+            page,
+            per_page,
+            q:key
+        }
+    })
+}

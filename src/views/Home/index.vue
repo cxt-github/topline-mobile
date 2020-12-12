@@ -137,7 +137,7 @@ export default {
       let channel = this.channelList[this.active];
       if(channel.pre_timestamp === null){
         channel.drapLoading  = false
-        channel.finished = false
+        channel.finished = true
         return
       }
       //判断是否第一次进入
