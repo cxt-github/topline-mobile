@@ -26,3 +26,16 @@ export function dislikeArticles(id) {
         }
     })
 }
+
+//举报文章
+export function informArticles({id,type}) {
+    return request({
+        url: '/app/v1_0/article/reports',
+        method: 'POST',
+        data: {
+            target: id,
+            type: type,
+            remark: '不爽，就想举报'
+        }
+    })
+}

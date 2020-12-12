@@ -19,14 +19,15 @@
         v-for="(item, index) in itemList"
         :key="index"
         :title="item.name"
+        @click="inform(item.value)"
       />
     </van-cell-group>
   </van-popup>
 </template>
 
 <script>
-//导入文章不喜欢api
-import { dislikeArticles } from "../../../api/articles";
+//导入文章不喜欢api、举报文章
+import { dislikeArticles, informArticles } from "../../../api/articles";
 //导入拉黑作者api
 import { userBlacklist } from '../../../api/user'
 
@@ -78,9 +79,35 @@ export default {
       //判断用户是否登录
       let use = this.$store.state.user;
       if(use) { //已经登录
-        let res = await userBlacklist(this.authorId)
+        await userBlacklist(this.authorId)
         this.$toast.success('成功拉黑作者');
       } else {  //未登录
+        this.$toast.fail('请先登录');
+      }
+      //关闭弹出层
+      this.$emit("input", false);
+    },
+
+    //举报文章
+    async inform(value) {
+      //判断用户是否登录
+      let use = this.$store.state.user;
+      if(use) {
+        try {
+          await informArticles({
+          id: this.activeArticleId.toString(),
+          type: value
+        })
+        this.$toast.success('举报成功');
+        } catch (error) {
+          console.dir(error);
+          if(error.response.status === 409){
+            this.$toast.fail('改文章已经被举报了');
+          } else {
+            this.$toast.fail('系统异常');
+          }
+        }
+      } else { //未登录
         this.$toast.fail('请先登录');
       }
       //关闭弹出层
