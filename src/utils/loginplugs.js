@@ -27,8 +27,9 @@ export default myplugs.install = (Vue, options) => {
                     //没有登录直接跳转到登录页面
                     router.push("/login");
                 })
-                .catch(() => {});
-            return
+                .catch(() => {
+                });
+             return use
         }
     }
 }

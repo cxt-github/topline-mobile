@@ -56,23 +56,19 @@ export default {
     //隐藏此消息
     async NoLike() {
       //判断用户是否登录
-      let use = this.$store.state.user;
-      if (use) {
-        //已经登录
-        try {
-          //代表无误执行
-          //发请求取关
-          await dislikeArticles(this.activeArticleId);
-          //传值给父组件，删除文章
-          this.$emit("delItem", this.activeArticleId);
-          this.$toast.success("取关成功");
-        } catch (error) {
-          //代码有误才执行
-          this.$toast.fail("取关失败");
-        }
-      } else {
-        //未登录
-        this.$toast.fail("请先登录");
+      let user = this.$login();
+      if (user === null) return;
+      //已经登录
+      try {
+        //代表无误执行
+        //发请求取关
+        await dislikeArticles(this.activeArticleId);
+        //传值给父组件，删除文章
+        this.$emit("delItem", this.activeArticleId);
+        this.$toast.success("取关成功");
+      } catch (error) {
+        //代码有误才执行
+        this.$toast.fail("取关失败");
       }
       //关闭弹出层
       this.$emit("input", false);
@@ -81,15 +77,11 @@ export default {
     //拉黑作者
     async blackAuthord() {
       //判断用户是否登录
-      let use = this.$store.state.user;
-      if (use) {
-        //已经登录
-        await userBlacklist(this.authorId);
-        this.$toast.success("成功拉黑作者");
-      } else {
-        //未登录
-        this.$toast.fail("请先登录");
-      }
+      let user = this.$login();
+      if (user === null) return;
+      //已经登录
+      await userBlacklist(this.authorId);
+      this.$toast.success("成功拉黑作者");
       //关闭弹出层
       this.$emit("input", false);
     },
@@ -97,25 +89,21 @@ export default {
     //举报文章
     async inform(value) {
       //判断用户是否登录
-      let use = this.$store.state.user;
-      if (use) {
-        try {
-          await informArticles({
-            id: this.activeArticleId.toString(),
-            type: value,
-          });
-          this.$toast.success("举报成功");
-        } catch (error) {
-          console.dir(error);
-          if (error.response.status === 409) {
-            this.$toast.fail("改文章已经被举报了");
-          } else {
-            this.$toast.fail("系统异常");
-          }
+      let user = this.$login();
+      if (user === null) return;
+      //已经登录
+      try {
+        await informArticles({
+          id: this.activeArticleId.toString(),
+          type: value,
+        });
+        this.$toast.success("举报成功");
+      } catch (error) {
+        if (error.response.status === 409) {
+          this.$toast.fail("改文章已经被举报了");
+        } else {
+          this.$toast.fail("系统异常");
         }
-      } else {
-        //未登录
-        this.$toast.fail("请先登录");
       }
       //关闭弹出层
       this.$emit("input", false);

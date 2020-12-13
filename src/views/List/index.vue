@@ -68,20 +68,23 @@ export default {
     //评论
     comment() {
       // 判断用户是否登录
-      let use = this.$store.state.user;
-      if (!use || !use.token) {
-        this.$dialog.confirm({
-          title: "注意",
-          message: "要进行当前操作需要登录",
-        })
-          .then(() => {
-            //没有登录直接跳转到登录页面
-            this.$router.push("/login");
-          })
-          .catch(() => {});
-          return
-      }
-      // this.$login()
+      // debugger
+      // let use = this.$store.state.user;
+      // if (!use || !use.token) {
+      //   this.$dialog
+      //     .confirm({
+      //       title: "注意",
+      //       message: "要进行当前操作需要登录",
+      //     })
+      //     .then(() => {
+      //       //没有登录直接跳转到登录页面
+      //       this.$router.push("/login");
+      //     })
+      //     .catch(() => {});
+      //   return;
+      // }
+      let login = this.$login()
+      if(login === null) return
       console.log(1111);
     },
   },
