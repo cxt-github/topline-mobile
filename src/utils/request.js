@@ -21,6 +21,11 @@ const myrequest = axios.create({
     },
 })
 
+//再自定义一个 axios 实例，用来刷新token
+const myrequest_token = axios.create({
+  baseURL: 'http://ttapi.research.itcast.cn/',
+})
+
 // 添加请求拦截器
 myrequest.interceptors.request.use( (config) => {
     // 在发送请求之前做些什么
@@ -40,8 +45,27 @@ myrequest.interceptors.request.use( (config) => {
 myrequest.interceptors.response.use( (response) => {
     // 对响应数据做点什么
     return response.data.data || response.data;
-  },  (error) => {
+  }, async (error) => {
     // 对响应错误做点什么
+    if(error.response.status === 401) {
+      let refresh_token = store.state.user.refresh_token
+      let res = await myrequest_token({
+        url: '/app/v1_0/authorizations',
+        method: 'put',
+        headers:{
+          Authorization: `Bearer ${refresh_token}`
+        }
+      })
+      //得到新token
+      let token = res.data.data.token
+      //保存新同肯
+      store.commit('setUse',{
+        token,
+        refresh_token
+      })
+      //重新发请求登录
+      return myrequest(error.config)
+    }
     return Promise.reject(error);
   });
 
