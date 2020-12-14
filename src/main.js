@@ -36,9 +36,13 @@ var relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 
 //全局过滤
-//过滤到现在的相对事件，用dayjs
+//过滤过去到现在的相对事件，用dayjs
 Vue.filter('dateFilter',item => {
   return dayjs().from(dayjs(item))
+})
+
+Vue.filter('timeFilter',item => {
+  return dayjs().format('MM-DD HH:mm')
 })
 
 //使用自己封装的vue插件

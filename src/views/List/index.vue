@@ -19,7 +19,7 @@
           :key="index"
         >
           <template #label>
-            <span>{{ item.title }}</span>
+            <span @click="articlesDetails(item.art_id)">{{ item.title }}</span>
             <van-grid :column-num="3" :border="false">
               <van-grid-item text="评论" @click="comment" />
               <van-grid-item text="点赞" />
@@ -87,6 +87,14 @@ export default {
       if(login === null) return
       console.log(1111);
     },
+
+    //
+    articlesDetails(artid){
+      // 用户是否登录
+       let login = this.$login()
+      if(login === null) return
+      this.$router.push(`/detail/${artid}`)
+    }
   },
 };
 </script>
@@ -94,10 +102,5 @@ export default {
 <style lang="less" scoped>
 .list {
   margin-top: 46px;
-  /deep/.van-nav-bar__left {
-    .van-icon {
-      color: #fff;
-    }
-  }
 }
 </style>

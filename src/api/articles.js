@@ -51,7 +51,7 @@ export function associateSuggest(q){
     })
 }
 
-//搜索关键字文章
+//搜索关键字文章列表
 export function searchKeyArticles({page,per_page,key}) {
     return request({
         url: '/app/v1_0/search',
@@ -61,5 +61,13 @@ export function searchKeyArticles({page,per_page,key}) {
             per_page,
             q:key
         }
+    })
+}
+
+//获取id文章详情
+export function articlesDetails(artId) {
+    return request({
+        url: `/app/v1_0/articles/${artId}`,
+        method: 'GET',
     })
 }

@@ -18,5 +18,10 @@ export default {
   .van-nav-bar__title {
     color: #fff;
   }
+  /deep/.van-nav-bar__left {
+    .van-icon {
+      color: #fff;
+    }
+  }
 }
 </style>
