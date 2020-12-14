@@ -4,14 +4,14 @@
       <template #title>
         <div class="bottom">
           <div class="ipt">
-            <van-field placeholder="请输入用户名">
+            <van-field v-model="value" placeholder="请输入用户名">
               <template #left-icon>
                 <van-icon name="edit" />
               </template>
             </van-field>
           </div>
           <div>
-            <van-button style="margin:0 20px" type="primary">发送</van-button>
+            <van-button style="margin:0 20px" type="primary" @click="sendMsg">发送</van-button>
           </div>
           <div class="start">
             <van-icon name="star-o" />
@@ -23,7 +23,29 @@
 </template>
 
 <script>
-export default {};
+//添加品论api
+import { addComment } from '../../../api/comment'
+
+export default {
+  props:['getDetail'],
+  data() {
+    return {
+      value:'',
+    }
+  },
+
+  methods: {
+    //发送
+    async sendMsg() {
+      let res = await addComment({
+        target: this.getDetail.art_id,
+        content: this.value,
+      })
+      this.$emit('setComment',res)
+      this.value = ''
+    }
+  },
+};
 </script>
 
 <style lang="less" scoped>

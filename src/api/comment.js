@@ -16,3 +16,16 @@ export function getComment({type,source,offset,limit}) {
         }
     })
 }
+
+//添加评论或评论回复
+export function addComment({target,content,art_id}) {
+    return request({
+        url: '/app/v1_0/comments',
+        method: 'POST',
+        data: {
+            target,
+            content,
+            art_id: art_id || null
+        }
+    })
+}

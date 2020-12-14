@@ -14,7 +14,7 @@
     </template>
     <template #default>
       <van-button v-if="!getDetail.is_followed" type="danger" size="small" @click="followed">关注</van-button>
-      <van-button v-else type="default" size="small">取消关注</van-button>
+      <van-button v-else type="default" size="small" @click="unFollowed">取消关注</van-button>
     </template>
   </van-cell>
 </template>

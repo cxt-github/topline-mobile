@@ -29,7 +29,7 @@
     <!-- 评论留言 -->
     <comment :commentList="commentList" />
     <!-- 发表评论插件 -->
-    <mess />
+    <mess :getDetail="getDetail" @setComment="setComment" />
   </div>
 </template>
 
@@ -76,6 +76,12 @@ export default {
       });
       this.commentList = res.results;
     },
+
+    //mess子组件传过来是数据
+    setComment(res) {
+        console.log(res);
+        this.commentList.unshift(res.new_obj)
+    }
   },
 
   created() {
