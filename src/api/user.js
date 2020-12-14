@@ -25,3 +25,22 @@ export function userBlacklist(id) {
         }
     })
 }
+
+//关注作者
+export function userFollowed(artId) {
+    return request({
+        url: '/app/v1_0/user/followings',
+        method: 'POST',
+        data: {
+            target: artId
+        }
+    })
+}
+
+//取关作者
+export function unUserFollowed(artId) {
+    return request({
+        url: `/app/v1_0/user/followings/${artId}`,
+        method: 'DELETE'
+    })
+}
