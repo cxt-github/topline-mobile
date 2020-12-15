@@ -8,10 +8,10 @@
         <!-- 头部上部 -->
         <div class="userMsg">
           <div class="leftimg">
-            <van-image round src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            <van-image round :src="userDataObj.poto" />
           </div>
           <div class="name">
-            <van-cell title="黑马小公举">
+            <van-cell :title="userDataObj.name">
               <template slot="label">
                 <van-button round type="primary" size="mini"
                   >申请认证</van-button
@@ -21,7 +21,7 @@
           </div>
           <div class="read">
             <div class="book">
-              <van-image src="https://img.yzcdn.cn/vant/cat.jpeg" />
+              <van-image :src="userDataObj.poto" />
             </div>
             <div class="name">
               <van-cell>
@@ -36,21 +36,21 @@
           </div>
         </div>
         <!-- 头部下部 -->
-        <van-grid :column-num="3">
+        <van-grid :column-num="3" :border="false">
           <van-grid-item icon="photo-o" text="动态">
-            <template slot="icon"> 33 </template>
+            <template slot="icon"> {{userDataObj.art_count}} </template>
           </van-grid-item>
           <van-grid-item icon="photo-o" text="关注">
-            <template slot="icon"> 88 </template>
+            <template slot="icon"> {{userDataObj.follow_count}} </template>
           </van-grid-item>
           <van-grid-item icon="photo-o" text="粉丝">
-            <template slot="icon"> 66 </template>
+            <template slot="icon"> {{userDataObj.fans_count}} </template>
           </van-grid-item>
         </van-grid>
       </template>
     </van-cell>
     <!-- 操作 -->
-    <van-grid column-num="3">
+    <van-grid column-num="3" :border="false">
       <van-grid-item icon="star-o" text="收藏" />
       <van-grid-item icon="clock-o" text="历史" />
       <van-grid-item icon="records" text="作品" />
@@ -65,16 +65,28 @@
 </template>
 
 <script>
+//导入获取用户自己信息api
+import { userData } from '../../api/user'
 export default {
   name: 'my',
 
   data() {
     return {
-      
+      userDataObj: {}, //自己信息
     }
   },
 
   methods: {
+    //获取用户自己信息
+    async userData() {
+      const res = await userData()
+      this.userDataObj = res
+    },
+
+  },
+
+  created() {
+    this.userData()
 
   },
 };
