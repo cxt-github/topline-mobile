@@ -94,10 +94,6 @@ export default {
       height: 70px;
     }
   }
-  .name {
-    .van-button {
-    }
-  }
   .read {
     background-color: #3981c9;
     align-items: center;
