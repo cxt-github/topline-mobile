@@ -1,15 +1,131 @@
 <template>
-  <div>
-      <h1>my</h1>
+  <div class="my">
+    <!-- 导航栏 -->
+    <van-nav-bar title="我的" fixed left-arrow @click-left="$router.back()" />
+    <!-- 头部 -->
+    <van-cell class="head">
+      <template>
+        <!-- 头部上部 -->
+        <div class="userMsg">
+          <div class="leftimg">
+            <van-image round src="https://img.yzcdn.cn/vant/cat.jpeg" />
+          </div>
+          <div class="name">
+            <van-cell title="黑马小公举">
+              <template slot="label">
+                <van-button round type="primary" size="mini"
+                  >申请认证</van-button
+                >
+              </template>
+            </van-cell>
+          </div>
+          <div class="read">
+            <div class="book">
+              <van-image src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            </div>
+            <div class="name">
+              <van-cell>
+                <template slot="title">
+                  <div class="today">今日阅读</div>
+                </template>
+                <template slot="label">
+                  <div class="min">5分钟</div>
+                </template>
+              </van-cell>
+            </div>
+          </div>
+        </div>
+        <!-- 头部下部 -->
+        <van-grid :column-num="3">
+          <van-grid-item icon="photo-o" text="动态">
+            <template slot="icon"> 33 </template>
+          </van-grid-item>
+          <van-grid-item icon="photo-o" text="关注">
+            <template slot="icon"> 88 </template>
+          </van-grid-item>
+          <van-grid-item icon="photo-o" text="粉丝">
+            <template slot="icon"> 66 </template>
+          </van-grid-item>
+        </van-grid>
+      </template>
+    </van-cell>
+    <!-- 操作 -->
+    <van-grid column-num="3">
+      <van-grid-item icon="star-o" text="收藏" />
+      <van-grid-item icon="clock-o" text="历史" />
+      <van-grid-item icon="records" text="作品" />
+    </van-grid>
+    <!-- 选项 -->
+    <van-cell-group>
+      <van-cell title="用户反馈" is-link />
+      <van-cell title="小智同学" is-link to="/chat" />
+      <van-cell title="系统设置" is-link />
+    </van-cell-group>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'my',
 
-}
+  data() {
+    return {
+      
+    }
+  },
+
+  methods: {
+
+  },
+};
 </script>
 
-<style>
-
+<style lang="less" scoped>
+.head {
+  margin-top: 46px;
+  padding: 10px 0px 10px 16px;
+}
+.userMsg {
+  display: flex;
+  position: relative;
+  .leftimg {
+    .van-image {
+      width: 70px;
+      height: 70px;
+    }
+  }
+  .name {
+    .van-button {
+    }
+  }
+  .read {
+    background-color: #3981c9;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 100px;
+    height: 45px;
+    padding: 2px 0px;
+    border-radius: 33px 0 0 33px;
+    .book {
+      margin-left: 10px;
+      .van-image {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .name {
+      /deep/.van-cell {
+        background-color: #3981c9;
+        padding: 0;
+        margin-left: 10px;
+      }
+      .today {
+        font-size: 12px;
+      }
+    }
+  }
+}
 </style>
