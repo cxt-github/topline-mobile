@@ -24,6 +24,7 @@ const routes = [
   },
   { path: '/list/:key', component: () => import('../views/List') },
   { path: '/detail/:artId', component: () => import('../views/Detail') },
+  { path: '/person', component: () => import('../views/Person') },
 ]
 
 const router = new VueRouter({

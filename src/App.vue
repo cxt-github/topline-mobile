@@ -5,14 +5,12 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 <style lang="less">
- #app {
-    height: 100%;
-  }
+#app {
+  height: 100%;
+}
 .van-nav-bar {
   background-color: #1989fa !important;
   .van-nav-bar__title {
@@ -20,6 +18,11 @@ export default {
   }
   /deep/.van-nav-bar__left {
     .van-icon {
+      color: #fff;
+    }
+  }
+  /deep/.van-nav-bar__right {
+    .van-nav-bar__text {
       color: #fff;
     }
   }

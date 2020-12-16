@@ -8,10 +8,10 @@
         <!-- 头部上部 -->
         <div class="userMsg">
           <div class="leftimg">
-            <van-image round :src="userDataObj.poto" />
+            <van-image round :src="userDataObj.poto" @click="$router.push('/person')" />
           </div>
           <div class="name">
-            <van-cell :title="userDataObj.name">
+            <van-cell :title="userDataObj.name" @click="$router.push('/person')">
               <template slot="label">
                 <van-button round type="primary" size="mini"
                   >申请认证</van-button
@@ -66,7 +66,7 @@
 
 <script>
 //导入获取用户自己信息api
-import { userData } from '../../api/user'
+import { userData, } from '../../api/user'
 export default {
   name: 'my',
 
@@ -87,7 +87,6 @@ export default {
 
   created() {
     this.userData()
-
   },
 };
 </script>

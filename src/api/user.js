@@ -76,3 +76,15 @@ export function userFens() {
         method: 'GET'
     })
 }
+
+//编辑用户个人资料
+export function compileData({name,gender}) {
+    return request({
+        url: '/app/v1_0/user/profile',
+        method: 'PATCH',
+        data: {
+            name,
+            gender,
+        }
+    })
+}

@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: token.getToken()
+    user: token.getToken(),
+    person: {}
   },
   mutations: {
     // 设置 use
@@ -16,6 +17,9 @@ export default new Vuex.Store({
       token.setToken(use)
       //更新给user
       state.user = use
+    },
+    setPerson(state,data){
+      state.person = data
     }
   },
   actions: {
